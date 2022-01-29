@@ -1,36 +1,33 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-import List from './components/List.jsx';
-
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import LogIn from './components/LogIn.jsx';
+import SignUp from './components/SignUp.jsx';
+import WelcomePage from './components/WelcomePage.jsx'
+import Home from './components/home.jsx'
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: []
+    
     }
   }
+   render () {
+     console.log("")
+    return ( 
+    <Router>
+            <div>
+                <Routes>
+                    <Route path="/" element= {<WelcomePage /> } />
+                    <Route path="/register" element={ <SignUp /> } />
+                    <Route path="/login" element={ <LogIn /> } />
+                    <Route path="/home" element={ <Home /> } />
 
-  componentDidMount() {
-    $.ajax({
-      url: '/items',
-      success: (data) => {
-        this.setState({
-          items: data
-        })
-      },
-      error: (err) => {
-        console.log('err', err);
-      }
-    });
-  }
-
-  render () {
-    return (<div>
-      <h1>Item List</h1>
-      <List items={this.state.items}/>
-    </div>)
+                </Routes>
+            </div>
+        </Router>
+    )
   }
 }
-
 ReactDOM.render(<App />, document.getElementById('app'));
